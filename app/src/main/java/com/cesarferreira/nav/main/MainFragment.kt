@@ -31,7 +31,7 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         openProfileButton.setOnClickListener {
-            findNavController().navigate(R.id.profile_fragment)
+            findNavController().navigate(MainFragmentDirections.navigateToProfileFragment())
         }
     }
 }
