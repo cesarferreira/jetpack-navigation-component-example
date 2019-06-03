@@ -1,14 +1,20 @@
 package com.cesarferreira.nav.login
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class LoginViewModel : ViewModel() {
 
+    init {
+        Log.d("lifecycle", "LoginViewModel: INIT")
+    }
+
     internal val authenticationState = MutableLiveData<AuthenticationState>().apply {
         value = AuthenticationState.UNAUTHENTICATED
     }
-    internal var username = ""
+
+    private var username = ""
 
     enum class AuthenticationState {
         UNAUTHENTICATED, // Initial state, the user needs to authenticate
@@ -25,13 +31,17 @@ class LoginViewModel : ViewModel() {
         }
     }
 
-    fun refuseAuthentication() {
+    fun logout() {
         authenticationState.value = AuthenticationState.UNAUTHENTICATED
     }
 
     private fun passwordIsValidForUsername(username: String, password: String): Boolean {
-        //        ...
-
         return true
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        Log.d("lifecycle", "LoginViewModel: OnCleared")
+
     }
 }

@@ -1,30 +1,33 @@
 package com.cesarferreira.nav.main
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import com.cesarferreira.nav.BaseFragment
 import com.cesarferreira.nav.R
-import kotlinx.android.synthetic.main.main_fragment.openProfileButton
+import com.cesarferreira.nav.login.LoginViewModel
+import com.cesarferreira.nav.observe
+import kotlinx.android.synthetic.main.main_fragment.*
+import org.koin.androidx.viewmodel.ext.android.getSharedViewModel
 
-class MainFragment : Fragment() {
+class MainFragment : BaseFragment() {
 
-    private lateinit var viewModel: MainViewModel
+    override fun layoutId(): Int = R.layout.main_fragment
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.main_fragment, container, false)
-    }
+    private lateinit var loginViewModel: LoginViewModel
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-        // TODO: Use the ViewModel
+
+        loginViewModel = getSharedViewModel(from = { requireActivity() })
+
+        observe(loginViewModel.authenticationState, { authenticationState ->
+            when (authenticationState) {
+                LoginViewModel.AuthenticationState.AUTHENTICATED -> showWelcomeMessage()
+                LoginViewModel.AuthenticationState.UNAUTHENTICATED -> navController.navigate(R.id.login_fragment)
+            }
+        })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -33,5 +36,11 @@ class MainFragment : Fragment() {
         openProfileButton.setOnClickListener {
             findNavController().navigate(MainFragmentDirections.navigateToProfileFragment())
         }
+
+        logoutButton.setOnClickListener {loginViewModel.logout()}
+    }
+
+    private fun showWelcomeMessage() {
+        Toast.makeText(context, "WELCOME", Toast.LENGTH_LONG).show()
     }
 }
