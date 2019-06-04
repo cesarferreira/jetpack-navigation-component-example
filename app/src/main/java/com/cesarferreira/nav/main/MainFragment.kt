@@ -25,7 +25,6 @@ class MainFragment : BaseFragment() {
 
         observe(loginViewModel.authenticationState, { authenticationState ->
             when (authenticationState) {
-//                LoginViewModel.AuthenticationState.AUTHENTICATED -> showWelcomeMessage()
                 LoginViewModel.AuthenticationState.UNAUTHENTICATED -> navController.navigate(R.id.auth_graph)
             }
         })

@@ -1,6 +1,7 @@
 package com.cesarferreira.nav
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -33,8 +34,24 @@ class MainActivity : AppCompatActivity(), ViewModelStoreOwner {
                 R.id.nav_home
             ), drawerLayout
         )
-        setupActionBarWithNavController(navController, appBarConfiguration)
+
+        // navController.addOnDestinationChangedListener { _, destination, _ ->
+        //     Log.d("tag", destination.navigatorName)
+        //     when (destination.id) {
+        //         R.id.login_fragment, R.id.main_fragment -> {
+        //             supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        //         }
+        //         else -> {
+        //             supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        //         }
+        //
+        //     }
+        // }
+
+        // setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -51,9 +68,7 @@ class MainActivity : AppCompatActivity(), ViewModelStoreOwner {
     override fun onBackPressed() {
         val currentDestination = navController.currentDestination
         when (currentDestination?.id) {
-            R.id.main_fragment, R.id.login_fragment -> {
-                finish()
-            }
+            R.id.main_fragment, R.id.login_fragment -> finish()
             else -> navController.popBackStack()
         }
     }

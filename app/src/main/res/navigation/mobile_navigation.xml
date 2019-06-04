@@ -31,8 +31,9 @@
             <action android:id="@+id/toForgotPassword"
                     app:destination="@+id/forgotPasswordFragment"/>
         </fragment>
-        <fragment android:id="@+id/forgotPasswordFragment" android:name="com.cesarferreira.nav.forgotpassword.ForgotPasswordFragment"
-                  android:label="fragment_forgot_password" tools:layout="@layout/fragment_forgot_password"/>
+        <fragment android:id="@+id/forgotPasswordFragment"
+                  android:name="com.cesarferreira.nav.forgotpassword.ForgotPasswordFragment"
+                  android:label="Forgot password" tools:layout="@layout/fragment_forgot_password"/>
     </navigation>
 
 </navigation>
