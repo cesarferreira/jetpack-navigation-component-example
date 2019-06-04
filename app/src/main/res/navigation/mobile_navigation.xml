@@ -17,15 +17,22 @@
     </fragment>
 
     <fragment
-        android:id="@+id/login_fragment"
-        android:name="com.cesarferreira.nav.login.LoginFragment"
-        android:label="Login"
-        tools:layout="@layout/login_fragment"/>
-
-    <fragment
         android:id="@+id/profile_fragment"
         android:name="com.cesarferreira.nav.profile.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/profile_fragment"/>
+
+    <navigation android:id="@+id/auth_graph" app:startDestination="@id/login_fragment">
+        <fragment
+            android:id="@+id/login_fragment"
+            android:name="com.cesarferreira.nav.login.LoginFragment"
+            android:label="Login"
+            tools:layout="@layout/login_fragment">
+            <action android:id="@+id/toForgotPassword"
+                    app:destination="@+id/forgotPasswordFragment"/>
+        </fragment>
+        <fragment android:id="@+id/forgotPasswordFragment" android:name="com.cesarferreira.nav.forgotpassword.ForgotPasswordFragment"
+                  android:label="fragment_forgot_password" tools:layout="@layout/fragment_forgot_password"/>
+    </navigation>
 
 </navigation>

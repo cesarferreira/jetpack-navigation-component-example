@@ -16,7 +16,7 @@ import com.google.android.material.navigation.NavigationView
 class MainActivity : AppCompatActivity(), ViewModelStoreOwner {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
-        private val navController by lazy { findNavController(R.id.nav_host_fragment)}
+    private val navController by lazy { findNavController(R.id.nav_host_fragment) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

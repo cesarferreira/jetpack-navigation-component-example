@@ -26,7 +26,7 @@ class MainFragment : BaseFragment() {
         observe(loginViewModel.authenticationState, { authenticationState ->
             when (authenticationState) {
 //                LoginViewModel.AuthenticationState.AUTHENTICATED -> showWelcomeMessage()
-                LoginViewModel.AuthenticationState.UNAUTHENTICATED -> navController.navigate(R.id.login_fragment)
+                LoginViewModel.AuthenticationState.UNAUTHENTICATED -> navController.navigate(R.id.auth_graph)
             }
         })
 
@@ -40,9 +40,5 @@ class MainFragment : BaseFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         Log.d("lifecycle", "MainFragment -> onDestroyView")
-    }
-
-    private fun showWelcomeMessage() {
-        Toast.makeText(context, "WELCOME", Toast.LENGTH_LONG).show()
     }
 }

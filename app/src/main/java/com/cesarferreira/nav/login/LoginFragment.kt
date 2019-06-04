@@ -1,11 +1,7 @@
 package com.cesarferreira.nav.login
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.activity.addCallback
 import androidx.fragment.app.activityViewModels
 import com.cesarferreira.nav.BaseFragment
 import com.cesarferreira.nav.R
@@ -13,7 +9,10 @@ import com.cesarferreira.nav.login.LoginViewModel.AuthenticationState.AUTHENTICA
 import com.cesarferreira.nav.login.LoginViewModel.AuthenticationState.INVALID_AUTHENTICATION
 import com.cesarferreira.nav.observe
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.login_fragment.link_signup
 import kotlinx.android.synthetic.main.login_fragment.loginButton
+import kotlinx.android.synthetic.main.login_fragment.passwordEditText
+import kotlinx.android.synthetic.main.login_fragment.usernameEditText
 
 class LoginFragment : BaseFragment() {
 
@@ -21,17 +20,13 @@ class LoginFragment : BaseFragment() {
 
     private val loginViewModel: LoginViewModel by activityViewModels()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            Log.d("lifecycle", "handleOnBackPressed")
-            // activity?.finish()
-        }
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
-
+    @SuppressLint("SetTextI18n")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        // FAKE
+        usernameEditText.setText("demo")
+        passwordEditText.setText("demo")
 
         observe(loginViewModel.authenticationState, { authenticationState ->
             when (authenticationState) {
@@ -46,8 +41,9 @@ class LoginFragment : BaseFragment() {
         })
 
         loginButton.setOnClickListener {
-            // viewModel.authenticate(usernameEditText.text.toString(), passwordEditText.text.toString())
-            loginViewModel.authenticate("yomama", "yomama")
+            loginViewModel.authenticate(usernameEditText.text.toString(), passwordEditText.text.toString())
         }
+
+        link_signup.setOnClickListener { navController.navigate(LoginFragmentDirections.toForgotPassword()) }
     }
 }
