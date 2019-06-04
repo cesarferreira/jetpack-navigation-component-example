@@ -16,5 +16,5 @@ abstract class BaseFragment : Fragment() {
 
     internal val navController by lazy { findNavController() }
 
-//    open fun onBackPressed() = activity?.onBackPressed()
+    open fun onBackPressed() = activity?.onBackPressed()
 }

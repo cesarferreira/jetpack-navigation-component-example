@@ -1,42 +1,49 @@
 package com.cesarferreira.nav.login
 
 import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.activity.addCallback
+import androidx.fragment.app.activityViewModels
 import com.cesarferreira.nav.BaseFragment
 import com.cesarferreira.nav.R
+import com.cesarferreira.nav.login.LoginViewModel.AuthenticationState.AUTHENTICATED
+import com.cesarferreira.nav.login.LoginViewModel.AuthenticationState.INVALID_AUTHENTICATION
 import com.cesarferreira.nav.observe
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.login_fragment.*
-import org.koin.androidx.viewmodel.ext.android.getSharedViewModel
+import kotlinx.android.synthetic.main.login_fragment.loginButton
 
 class LoginFragment : BaseFragment() {
 
     override fun layoutId(): Int = R.layout.login_fragment
 
-    private lateinit var loginViewModel: LoginViewModel
+    private val loginViewModel: LoginViewModel by activityViewModels()
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            Log.d("lifecycle", "handleOnBackPressed")
+            // activity?.finish()
+        }
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        loginViewModel = getSharedViewModel(from = { requireActivity() })
-
-
-        // TODO make it backpress quit the app
 
         observe(loginViewModel.authenticationState, { authenticationState ->
             when (authenticationState) {
-                LoginViewModel.AuthenticationState.AUTHENTICATED -> navController.popBackStack()
-                LoginViewModel.AuthenticationState.INVALID_AUTHENTICATION ->
+                AUTHENTICATED -> navController.popBackStack()
+                INVALID_AUTHENTICATION ->
                     Snackbar.make(
-                            view!!,
-                            R.string.invalid_credentials,
-                            Snackbar.LENGTH_SHORT
+                        view!!,
+                        R.string.invalid_credentials,
+                        Snackbar.LENGTH_SHORT
                     ).show()
             }
         })
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
         loginButton.setOnClickListener {
             // viewModel.authenticate(usernameEditText.text.toString(), passwordEditText.text.toString())
