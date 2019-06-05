@@ -24,19 +24,4 @@
 
     <include app:graph="@navigation/auth_navigation"/>
 
-
-    <!--    <navigation android:id="@+id/auth_graph" app:startDestination="@id/login_fragment">-->
-<!--        <fragment-->
-<!--            android:id="@+id/login_fragment"-->
-<!--            android:name="com.cesarferreira.nav.login.LoginFragment"-->
-<!--            android:label="Login"-->
-<!--            tools:layout="@layout/login_fragment">-->
-<!--            <action android:id="@+id/toForgotPassword"-->
-<!--                    app:destination="@+id/forgotPasswordFragment"/>-->
-<!--        </fragment>-->
-<!--        <fragment android:id="@+id/forgotPasswordFragment"-->
-<!--                  android:name="com.cesarferreira.nav.forgotpassword.ForgotPasswordFragment"-->
-<!--                  android:label="Forgot password" tools:layout="@layout/fragment_forgot_password"/>-->
-<!--    </navigation>-->
-
 </navigation>
