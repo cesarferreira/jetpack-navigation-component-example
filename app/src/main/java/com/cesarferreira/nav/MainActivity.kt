@@ -1,8 +1,6 @@
 package com.cesarferreira.nav
 
 import android.os.Bundle
-import android.util.Log
-import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
@@ -30,34 +28,11 @@ class MainActivity : AppCompatActivity(), ViewModelStoreOwner {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.nav_home
-            ), drawerLayout
+            setOf(R.id.login_fragment, R.id.main_fragment), null
         )
 
-        // navController.addOnDestinationChangedListener { _, destination, _ ->
-        //     Log.d("tag", destination.navigatorName)
-        //     when (destination.id) {
-        //         R.id.login_fragment, R.id.main_fragment -> {
-        //             supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        //         }
-        //         else -> {
-        //             supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        //         }
-        //
-        //     }
-        // }
-
-        // setupActionBarWithNavController(navController, appBarConfiguration)
+        setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-        supportActionBar?.setDisplayHomeAsUpEnabled(false)
-
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.main, menu)
-        return true
     }
 
     override fun onSupportNavigateUp(): Boolean {
