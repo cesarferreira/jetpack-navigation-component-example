@@ -2,7 +2,6 @@ package com.cesarferreira.nav.main
 
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.cesarferreira.nav.BaseFragment

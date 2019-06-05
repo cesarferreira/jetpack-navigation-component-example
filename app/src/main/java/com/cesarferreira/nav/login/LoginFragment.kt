@@ -2,6 +2,7 @@ package com.cesarferreira.nav.login
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.activityViewModels
 import com.cesarferreira.nav.BaseFragment
 import com.cesarferreira.nav.R
@@ -20,13 +21,17 @@ class LoginFragment : BaseFragment() {
 
     private val loginViewModel: LoginViewModel by activityViewModels()
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        // FAKE
+        usernameEditText.setText("demo")
+        passwordEditText.setText("demo")
+    }
+
     @SuppressLint("SetTextI18n")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        // FAKE
-        usernameEditText.setText("demo")
-        passwordEditText.setText("demo")
 
         observe(loginViewModel.authenticationState, { authenticationState ->
             when (authenticationState) {
